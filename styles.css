@@ -1,0 +1,238 @@
+/* GENERIC STYLES */
+
+html, body {
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.main {
+  height: 90vh;
+}
+
+#nav {
+  font-size: .2em;
+}
+
+body {/* box-sizing: border-box; */
+  font-family: 'Sarabun', sans-serif;
+  opacity: 1;
+}
+
+body::before {
+  content: '';
+  background-image: url('images/pexels-henry-&-co-1939485.jpg');
+  background-size: cover;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: .4;
+}
+
+header, footer {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
+  width: 100vw;
+}
+/* END generic styles
+START top navbar styles 
+*************************
+************************** */
+
+header nav {
+  width: 100vw;
+  padding: 5em;
+}
+
+nav.navbar-dark {
+  background: hsl(10,15%, 57%) !important;
+}
+
+header nav a, #navbarMenu li a {
+  font-weight: bold;
+  padding: .5em 1.5em .5em .5em;
+}
+/* #navbarMenu a:hover,  */
+
+#navbarMenu ul:hover .active {
+  background: none;
+}
+
+#navbarMenu .active, #navbarMenu ul a:active, #navbarMenu li a:hover,
+#navbarMenu ul .active:hover {
+  background: linear-gradient(90deg, rgb(2,0,36) 0%, rgba(25,65,90,.5) 35%, rgb(0,212,255) 100%);
+  border-radius: 50%;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  width: 100%;
+}
+/* #navbarMenu ul a:active {
+  background: linear-gradient(90deg, rgb(2,0,36) 0%, rgba(25,65,90,.5) 35%, rgb(0,212,255) 100%);
+  border-radius: 50%;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  width: 100%;
+}
+
+#navbarMenu li a:hover {
+  background: linear-gradient(90deg, rgb(2,0,36) 0%, rgba(25,65,90,.5) 35%, rgb(0,212,255) 100%);
+  border-radius: 50%;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  width: 100%;
+}
+ */
+/* #navbarMenu ul .active:hover {
+  background: linear-gradient(90deg, rgb(2,0,36) 0%, rgba(25,65,90,.5) 35%, rgb(0,212,255) 100%);
+  border-radius: 50%;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  width: 100%;
+}
+ */
+/* END top navbar styles 
+START main content styles 
+**************************
+**************************
+************************** */
+
+.left-side::before {
+  content: '';
+  opacity: .8;
+  background: linear-gradient(to right, rgba(109, 179, 242, .6) 70%, rgba(109, 60, 252, .6) 100%),
+                url('images/pexels-gdtography-911738.jpg');
+  /* background-image: url('images/pexels-gdtography-911738.jpg');
+ */
+  background-size: contain, cover;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.left-side, .right-side {/* border-left: 1px solid black;border-right: 1px solid black;
+ */
+  height: 100%;
+  padding: 0;
+}
+
+.right {
+  color: hsl(10,15%, 27%) ;
+  font-weight: 600;
+}
+
+.left p {
+  letter-spacing: .1em;
+}
+
+.introduction {/* height: 100%;
+*/
+  padding: 1em;
+  width: 100%;
+}
+
+.right-side .row {/* height: 40%;
+ */
+  margin: auto;
+  width: 100%;
+  height: 100%;
+}
+
+.right-top-content::before {
+  content: '';
+  background-image: url('images/coding-1853305_640.jpg');
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-position-x: -12em;
+  background-size: cover;
+}
+
+.right-bottom-content {
+  background: hsl(10,15%, 57%);
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  padding-top: 2em;
+  padding-bottom: 2em;
+}
+
+.right-bottom-content h2 {
+  padding-top: 1.5em;
+  font-size: 1.3em;
+  text-transform: uppercase;
+}
+
+.right-bottom-content h2 + p {
+  padding-top: .4em;
+  border-top: 1px solid white;
+  display: inline-block;
+}
+
+.announcing {
+  padding: 0;
+  padding-top: 1.5em;
+  position: relative;
+  font-size: 1.7em;
+  margin: 0;
+  text-align: justify;
+  align-self: start;
+}
+
+.announcing p {
+  margin: 0;
+  padding: 0;
+}
+
+.introduction {/* border-radius: 0 15px 15px 15px;
+ */
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(25,65,90,.5) 35%, rgba(0,212,255,1) 100%);
+  color: white;
+  margin: 0;
+}
+
+.intro-background-image {
+  text-align: center;
+  background: white;
+  background-image: url('images/older-replace-later.jpeg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 1em;
+  height: 15em;
+  width: 15em;
+}
+
+.main {
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  position: relative;
+  left: 3em;
+}
+
+@media only screen and (max-width: 769px) {/* For mobile phones: */
+
+  header [class^="col-"] ul {
+    padding-right: 5em;
+    margin-left: 0;
+  }
+
+  header [class^='col-'] {
+    border: none;
+  }
+}
