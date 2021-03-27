@@ -1,30 +1,20 @@
-/* GENERIC STYLES */
+/* BASIC PAGE STYLES and basic typography setup */
 
 html, body {
   width: 100vw;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
 }
 
 .main {
   height: 90vh;
 }
 
-#nav {
-  font-size: .2em;
+body {
+  font-family: 'Sarabun', sans-serif;
 }
 
-body {/* box-sizing: border-box; */
-  font-family: 'Sarabun', sans-serif;
-  opacity: 1;
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
 }
 
 body::before {
@@ -40,8 +30,6 @@ body::before {
 }
 
 header, footer {
-  font-family: 'Quicksand', sans-serif;
-  font-weight: 700;
   width: 100vw;
 }
 /* END generic styles
@@ -55,14 +43,13 @@ header nav {
 }
 
 nav.navbar-dark {
-  background: hsl(10,15%, 57%) !important;
+  background: hsl(10, 15%, 57%) !important;
 }
 
 header nav a, #navbarMenu li a {
   font-weight: bold;
   padding: .5em 1.5em .5em .5em;
 }
-/* #navbarMenu a:hover,  */
 
 #navbarMenu ul:hover .active {
   background: none;
@@ -70,38 +57,14 @@ header nav a, #navbarMenu li a {
 
 #navbarMenu .active, #navbarMenu ul a:active, #navbarMenu li a:hover,
 #navbarMenu ul .active:hover {
-  background: linear-gradient(90deg, rgb(2,0,36) 0%, rgba(25,65,90,.5) 35%, rgb(0,212,255) 100%);
+  background: linear-gradient(90deg, rgb(2, 0, 36) 0%, rgba(25, 65, 90, .5) 35%, rgb(0, 212, 255) 100%);
   border-radius: 50%;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
   width: 100%;
 }
-/* #navbarMenu ul a:active {
-  background: linear-gradient(90deg, rgb(2,0,36) 0%, rgba(25,65,90,.5) 35%, rgb(0,212,255) 100%);
-  border-radius: 50%;
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
-  width: 100%;
-}
-
-#navbarMenu li a:hover {
-  background: linear-gradient(90deg, rgb(2,0,36) 0%, rgba(25,65,90,.5) 35%, rgb(0,212,255) 100%);
-  border-radius: 50%;
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
-  width: 100%;
-}
- */
-/* #navbarMenu ul .active:hover {
-  background: linear-gradient(90deg, rgb(2,0,36) 0%, rgba(25,65,90,.5) 35%, rgb(0,212,255) 100%);
-  border-radius: 50%;
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
-  width: 100%;
-}
- */
 /* END top navbar styles 
-START main content styles 
+START left-side main content styles 
 **************************
 **************************
 ************************** */
@@ -111,8 +74,6 @@ START main content styles
   opacity: .8;
   background: linear-gradient(to right, rgba(109, 179, 242, .6) 70%, rgba(109, 60, 252, .6) 100%),
                 url('images/pexels-gdtography-911738.jpg');
-  /* background-image: url('images/pexels-gdtography-911738.jpg');
- */
   background-size: contain, cover;
   position: absolute;
   left: 0;
@@ -121,29 +82,54 @@ START main content styles
   bottom: 0;
 }
 
-.left-side, .right-side {/* border-left: 1px solid black;border-right: 1px solid black;
- */
+.left-side {
   height: 100%;
   padding: 0;
 }
 
-.right {
-  color: hsl(10,15%, 27%) ;
-  font-weight: 600;
-}
-
-.left p {
+.left-side p {
   letter-spacing: .1em;
 }
 
-.introduction {/* height: 100%;
-*/
+.introduction {
   padding: 1em;
-  width: 100%;
+  background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(25, 65, 90, .5) 35%, rgba(0, 212, 255, 1) 100%);
+  color: white;
 }
 
-.right-side .row {/* height: 40%;
- */
+.announcing {
+  padding: 0;
+  padding-top: 1.5em;
+  font-size: 1.7em;
+  margin: 0;
+  text-align: justify;
+}
+
+.announcing p {
+  margin: 0;
+  padding: 0;
+}
+
+.intro-background-image {
+  text-align: center;
+  background: white;
+  background-image: url('images/older-replace-later.jpeg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 1em;
+  height: 15em;
+  width: 15em;
+}
+/** END left-side page genderal styling
+START right-side page general styling 
+*************************************/
+
+.right-side {
+  height: 100%;
+  padding: 0;
+}
+
+.right-side .row {
   margin: auto;
   width: 100%;
   height: 100%;
@@ -162,34 +148,12 @@ START main content styles
 }
 
 .right-bottom-content {
-  background: hsl(10,15%, 57%);
+  background: hsl(10, 15%, 57%);
   color: white;
   font-weight: bold;
   text-align: center;
   padding-top: 2em;
   padding-bottom: 2em;
-}
-
-.about-right-content {
-  text-align: left;
-  text-indent: 2em;
-  font-weight: 600;
-}
-
-.about-right-content h1, .about-right-content h2 {
-  font-size: 1em;
-  margin-bottom: 0;
-  padding: 0;
-}
-
-.about-right-content a {
-  color: white;
-}
-
-.about-right-content address {
-  background: hsl(10,15%, 57%);
-  border-bottom: 1px solid hsl(10,15%,35%);
-  padding-bottom: 1em;
 }
 
 .right-bottom-content h2 {
@@ -198,57 +162,22 @@ START main content styles
   text-transform: uppercase;
 }
 
-.right-bottom-content h2 + p {
+.right-bottom-content h2+p {
   padding-top: .4em;
   border-top: 1px solid white;
   display: inline-block;
 }
+/** end right hand side page styles 
+** START PORTFOLIO page-specific styles 
+*********************************
+**********************************/
 
-.announcing {
-  padding: 0;
-  padding-top: 1.5em;
-  position: relative;
-  font-size: 1.7em;
-  margin: 0;
-  text-align: justify;
-  align-self: start;
-}
-
-.announcing p {
-  margin: 0;
-  padding: 0;
-}
-
-.introduction {/* border-radius: 0 15px 15px 15px;
- */
-  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(25,65,90,.5) 35%, rgba(0,212,255,1) 100%);
-  color: white;
-  margin: 0;
-}
-
-.intro-background-image {
-  text-align: center;
-  background: white;
-  background-image: url('images/older-replace-later.jpeg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: 1em;
-  height: 15em;
-  width: 15em;
-}
-
-.main {
-  margin: 0;
-  padding: 0;
-}
-
-.introduction img {
-  position: relative;
-  left: 3em;
+.blog .card-header {
+  background: hsla(10, 15%, 57%, .5);
 }
 
 .portfolio__item {
-  background: hsla(10,15%,57%,.6);
+  background: hsla(10, 15%, 57%, .6);
 }
 
 .portfolio__item {
@@ -259,6 +188,11 @@ START main content styles
 .portfolio__item .portfolio__img {
   width: 25em;
 }
+/** END portfolio-specific styles
+START BLOG specific styles **/
+/** END blog-specific styles 
+****************************
+********************************/
 
 .blog__item {
   text-align: left;
@@ -271,15 +205,33 @@ START main content styles
 p.card-text {
   text-indent: 2em;
 }
+/** END blog-specific styles 
+START ABOUT-page specific styles 
+*********************************
+**********************************/
 
-@media only screen and (max-width: 769px) {/* For mobile phones: */
-
-  header [class^="col-"] ul {
-    padding-right: 5em;
-    margin-left: 0;
-  }
-
-  header [class^='col-'] {
-    border: none;
-  }
+.about-right-content {
+  text-align: left;
+  text-indent: 2em;
+  font-weight: 600;
 }
+
+.about-right-content h1, .about-right-content h2 {
+  font-size: 1em;
+  padding: 0;
+}
+
+.about-right-content h1 {
+  margin-bottom: 1em;
+}
+
+.about-right-content a {
+  color: white;
+}
+
+.about-right-content address {
+  background: hsl(10, 15%, 57%);
+  border-bottom: 1px solid hsl(10, 15%, 35%);
+  padding-bottom: 1em;
+}
+/****************************************/
