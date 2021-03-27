@@ -260,6 +260,18 @@ START main content styles
   width: 25em;
 }
 
+.blog__item {
+  text-align: left;
+}
+
+.blog li {
+  text-align: left;
+}
+
+p.card-text {
+  text-indent: 2em;
+}
+
 @media only screen and (max-width: 769px) {/* For mobile phones: */
 
   header [class^="col-"] ul {
