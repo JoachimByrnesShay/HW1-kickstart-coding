@@ -170,6 +170,28 @@ START main content styles
   padding-bottom: 2em;
 }
 
+.about-right-content {
+  text-align: left;
+  text-indent: 2em;
+  font-weight: 600;
+}
+
+.about-right-content h1, .about-right-content h2 {
+  font-size: 1em;
+  margin-bottom: 0;
+  padding: 0;
+}
+
+.about-right-content a {
+  color: white;
+}
+
+.about-right-content address {
+  background: hsl(10,15%, 57%);
+  border-bottom: 1px solid hsl(10,15%,35%);
+  padding-bottom: 1em;
+}
+
 .right-bottom-content h2 {
   padding-top: 1.5em;
   font-size: 1.3em;
@@ -220,9 +242,22 @@ START main content styles
   padding: 0;
 }
 
-img {
+.introduction img {
   position: relative;
   left: 3em;
+}
+
+.portfolio {
+  background: rgb(25,65,90,.2);
+}
+
+.portfolio__item {
+  display: inline-block;
+  border: 3px solid black;
+}
+
+.portfolio__item .portfolio__img {
+  width: 25em;
 }
 
 @media only screen and (max-width: 769px) {/* For mobile phones: */

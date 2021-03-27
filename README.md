@@ -1,6 +1,7 @@
-# Homework #1, Kickstart Coding
-## Joachim Byrnes-Shay, march 26 2021
-## email:  jbyrnes.shay@yahoo.
+## Homework #1, Kickstart Coding
+### Joachim Byrnes-Shay, march 26 2021
+### email:  
+jbyrnes.shay@yahoo.com
 
 ### github live page url
 https://joachimbyrnesshay.github.io/HW1-kickstart-coding/. 
@@ -14,6 +15,12 @@ A personal portfolio/blog site
 Designed with boostrap 4 and custom CSS from scratch
 
 No templates were utilized
+
+### Fonts
+Sarabun sans-serif from Google Fonts
+
+Quicksand sans-serif from Google Fonts 
+
 
 ### Color Scheme
 light brown #a28681 as hsl(10, 15%, 57%)
@@ -30,7 +37,4 @@ purple-blue, #6d3cfc, just a touch to complete one gradient, with alpha channel 
 
 a textured cream white background is provided by a background image
 
-## Fonts
-Sarabun sans-serif from Google Fonts
-Quicksand sans-serif from Google Fonts 
 
