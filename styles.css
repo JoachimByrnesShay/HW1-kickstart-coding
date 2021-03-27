@@ -247,8 +247,8 @@ START main content styles
   left: 3em;
 }
 
-.portfolio {
-  background: rgb(25,65,90,.2);
+.portfolio__item {
+  background: hsla(10,15%,57%,.6);
 }
 
 .portfolio__item {
