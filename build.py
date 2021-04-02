@@ -6,3 +6,4 @@ ABOUT = "about.html"
 BLOG = "blog.html"
 PROJECTS = "projects.html"
 
+MY_PAGES = [INDEX, ABOUT, BLOG, PROJECTS]
