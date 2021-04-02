@@ -6,7 +6,7 @@ jbyrnes.shay@yahoo.com
 ***
 
 ### Description
-HW#2, bash scripting portion
+HW#2, python scripting portion
 
 ***
 
@@ -17,6 +17,10 @@ https://joachimbyrnesshay.github.io/HW1-kickstart-coding/.
 https://github.com/JoachimByrnesShay/HW1-kickstart-coding/
 
 ***
+
+### Features
+
+
 
 ### previous HW1 Description, still applies
 A personal portfolio/blog site
