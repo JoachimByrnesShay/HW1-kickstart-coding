@@ -1,7 +1,14 @@
-## Homework #1, Kickstart Coding
-### Joachim Byrnes-Shay, march 26 2021
+## Homework #2, Kickstart Coding
+### Joachim Byrnes-Shay, April 3 2021
 ### email:  
 jbyrnes.shay@yahoo.com
+
+***
+
+### Description
+HW#2, bash scripting portion
+
+***
 
 ### github live page url
 https://joachimbyrnesshay.github.io/HW1-kickstart-coding/. 
@@ -9,7 +16,9 @@ https://joachimbyrnesshay.github.io/HW1-kickstart-coding/.
 ### github repository
 https://github.com/JoachimByrnesShay/HW1-kickstart-coding/
 
-### Description
+***
+
+### previous HW1 Description, still applies
 A personal portfolio/blog site
 
 Designed with boostrap 4 and custom CSS from scratch
