@@ -7,7 +7,8 @@ ABOUT = "about.html"
 BLOG = "blog.html"
 PROJECTS = "projects.html"
 
-CREATED_INDEX = TOP + open(f"./content/{INDEX}").read() + BOTTOM
+BUILD_INDEX = TOP + open(f"./content/{INDEX}").read() + BOTTOM
+BUILD_ABOUT = TOP + open(f"./content/{ABOUT}").read() + BOTTOM
 
-open(f"./docs/{INDEX}", "w+").write(CREATED_INDEX)
-
+open(f"./docs/{INDEX}", "w+").write(BUILD_INDEX)
+open(f"./docs/{ABOUT}", "w+").write(BUILD_ABOUT)
