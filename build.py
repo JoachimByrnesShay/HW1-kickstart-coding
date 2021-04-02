@@ -1,4 +1,7 @@
 
+# this script satisifes all requiresments per specs
+# and additionally assigns the correct page title and correct active link status per each individual html page in docs output directory
+
 TOP = open("templates/top.html").read()
 BOTTOM = open("templates/bottom.html").read()
 
@@ -21,12 +24,13 @@ def build_pg_content(page):
             page_variables[pg_var] = 'active'
 
     # fill in correct values in the html code of top.html per each page, based on variables
+    # this particular methodology sorted out by experimenting with stackoverflow references to similar scenarioes, 
+    # but not exactly the same, at https://stackoverflow.com/questions/5952344/how-do-i-format-a-string-using-a-dictionary-in-python-3-x
     top_content = f"{TOP}".format(**page_variables)
 
     # combine all
     return top_content + open(f"./content/{page}").read() + BOTTOM
 
-    # this particular methodology sorted out by experimenting with stackoverflow references to similar  scenarioes, but not exactly the same, at https://stackoverflow.com/questions/5952344/how-do-i-format-a-string-using-a-dictionary-in-python-3-x
 
 
 def write_pg(page, full_content):
