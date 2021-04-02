@@ -7,11 +7,12 @@
 jbyrnes.shay@yahoo.com
 
 
-### Description
+### HW2 Description, current branch
 
 bash phase of HW#2
 using bash file to combine partials into site content for personal portfolio site built in HW1
 
+***
 
 ### github live page url
 
@@ -21,7 +22,9 @@ https://joachimbyrnesshay.github.io/HW1-kickstart-coding/.
 
 https://github.com/JoachimByrnesShay/HW1-kickstart-coding/
 
-### Description
+***
+
+### previous HW1 Description, still applies to current iteration
 
 A personal portfolio/blog site
 
