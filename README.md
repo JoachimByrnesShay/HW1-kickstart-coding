@@ -6,7 +6,7 @@ jbyrnes.shay@yahoo.com
 ***
 
 ### Description
-HW#2, bash scripting portion
+HW#2, python scripting portion
 
 ***
 
@@ -17,6 +17,24 @@ https://joachimbyrnesshay.github.io/HW1-kickstart-coding/.
 https://github.com/JoachimByrnesShay/HW1-kickstart-coding/
 
 ***
+
+### pull requests
+bash pull request is here:
+https://github.com/JoachimByrnesShay/HW1-kickstart-coding/pull/3
+python pull request is here:
+https://github.com/JoachimByrnesShay/HW1-kickstart-coding/pull/4
+
+### NOTES
+Re the pull requests, these are the only 2 pull requests for the existing branches.
+Note that there are 2 prior pull requests in the log because something originally went awry
+with my first 2 pull requests, and I started the project over when I saw that master was merged into ssg-python instead of the reverse.  Was not clear how that happened.   All was fine when redone.
+
+***
+### Features
+in build.py, 2 functions are utilized to create content and then write it to docs folder.
+the build_pg_content function creates variables to match those set to interpolate in top.html.
+in this manner, each page has a title based upon its file name, and interpolated variables in the nav links are used in conjunction with this function to determinate based upon file name if the active class should be written into the inline class attribute list for each li > a element among nav links.
+
 
 ### previous HW1 Description, still applies
 A personal portfolio/blog site
