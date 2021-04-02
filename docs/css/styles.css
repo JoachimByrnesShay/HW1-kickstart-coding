@@ -19,7 +19,7 @@ h1, h2, h3, h4, h5, h6 {
 
 body::before {
   content: '';
-  background-image: url('images/pexels-henry-&-co-1939485.jpg');
+  background-image: url('../images/pexels-henry-&-co-1939485.jpg');
   background-size: cover;
   position: fixed;
   top: 0;
@@ -73,7 +73,7 @@ START left-side main content styles
   content: '';
   opacity: .8;
   background: linear-gradient(to right, rgba(109, 179, 242, .6) 70%, rgba(109, 60, 252, .6) 100%),
-                url('images/pexels-gdtography-911738.jpg');
+                url('../images/pexels-gdtography-911738.jpg');
   background-size: contain, cover;
   position: absolute;
   left: 0;
@@ -113,7 +113,7 @@ START left-side main content styles
 .intro-background-image {
   text-align: center;
   background: white;
-  background-image: url('images/older-replace-later.jpeg');
+  background-image: url('../images/older-replace-later.jpeg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 1em;
@@ -137,7 +137,7 @@ START right-side page general styling
 
 .right-top-content::before {
   content: '';
-  background-image: url('images/coding-1853305_640.jpg');
+  background-image: url('../images/coding-1853305_640.jpg');
   position: absolute;
   top: 0;
   bottom: 0;
