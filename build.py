@@ -1,39 +1,14 @@
+import modules.pages
+
 def main():
-    TOP = open("templates/top.html").read()
-    BOTTOM = open("templates/bottom.html").read()
+    top = open("templates/top.html").read()
+    bottom = open("templates/bottom.html").read()
 
-    INDEX = "index.html"
-    ABOUT = "about.html"
-    BLOG = "blog.html"
-    PROJECTS = "projects.html"
+    pages = modules.pages.PAGES
 
-    MY_PAGES = [INDEX, ABOUT, BLOG, PROJECTS]
+    for this_page in pages:
+        main_content = open(this_page['filename']).read()
+        new_content = top + main_content + bottom
+        open(this_page['output'], 'w+').write(new_content)
 
-
-    def build_pg_content(page):
-        title = page.split('.')[0].upper()
-        # this variables are present in top.html
-        page_variables = {'title':title, 'index_state': "", 'blog_state': "", 'about_state': "", 'projects_state':""}
-
-        # insert active class into inline class list on link if current page
-        for pg_var in page_variables:
-            if title.lower() in pg_var:
-                page_variables[pg_var] = 'active'
-
-        # fill in correct values in the html code of top.html per each page, based on variables
-        # this particular methodology sorted out by experimenting with stackoverflow references to similar scenarioes, 
-        # but not exactly the same, at https://stackoverflow.com/questions/5952344/how-do-i-format-a-string-using-a-dictionary-in-python-3-x
-        top_content = f"{TOP}".format(**page_variables)
-
-        # combine all
-        return top_content + open(f"./content/{page}").read() + BOTTOM
-
-
-
-    def write_pg(page, full_content):
-        open(f"./docs/{page}", "w+").write(full_content)
-
-
-    for pg in MY_PAGES:
-        write_pg(pg, build_pg_content(pg))
 main()
