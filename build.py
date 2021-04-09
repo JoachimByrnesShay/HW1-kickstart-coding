@@ -1,8 +1,15 @@
+import datetime
 import modules.pages
 
+def get_year():
+    year = datetime.date.today().year
+    return year
+
 def apply_template(title, links, content):
+    year = get_year()
     template = open("templates/base.html").read()
-    return template.format(title=title, links=links, content=content)
+    template_vars = {'title':title, 'links':links, 'content':content, 'year': year}
+    return template.format(**template_vars)
 
 def create_links(pages, page):
     list_links = ''
@@ -29,4 +36,5 @@ def main():
     pages = modules.pages.PAGES
     create_output(pages)
 
-main()
+if __name__ == '__main__':
+    main()
