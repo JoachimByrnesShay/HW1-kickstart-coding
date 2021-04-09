@@ -1,42 +1,39 @@
+def main():
+    TOP = open("templates/top.html").read()
+    BOTTOM = open("templates/bottom.html").read()
 
-# this script satisifes all requiresments per specs
-# and additionally assigns the correct page title and correct active link status per each individual html page in docs output directory
+    INDEX = "index.html"
+    ABOUT = "about.html"
+    BLOG = "blog.html"
+    PROJECTS = "projects.html"
 
-
-TOP = open("templates/top.html").read()
-BOTTOM = open("templates/bottom.html").read()
-
-INDEX = "index.html"
-ABOUT = "about.html"
-BLOG = "blog.html"
-PROJECTS = "projects.html"
-
-MY_PAGES = [INDEX, ABOUT, BLOG, PROJECTS]
+    MY_PAGES = [INDEX, ABOUT, BLOG, PROJECTS]
 
 
-def build_pg_content(page):
-    title = page.split('.')[0].upper()
-    # this variables are present in top.html
-    page_variables = {'title':title, 'index_state': "", 'blog_state': "", 'about_state': "", 'projects_state':""}
+    def build_pg_content(page):
+        title = page.split('.')[0].upper()
+        # this variables are present in top.html
+        page_variables = {'title':title, 'index_state': "", 'blog_state': "", 'about_state': "", 'projects_state':""}
 
-    # insert active class into inline class list on link if current page
-    for pg_var in page_variables:
-        if title.lower() in pg_var:
-            page_variables[pg_var] = 'active'
+        # insert active class into inline class list on link if current page
+        for pg_var in page_variables:
+            if title.lower() in pg_var:
+                page_variables[pg_var] = 'active'
 
-    # fill in correct values in the html code of top.html per each page, based on variables
-    # this particular methodology sorted out by experimenting with stackoverflow references to similar scenarioes, 
-    # but not exactly the same, at https://stackoverflow.com/questions/5952344/how-do-i-format-a-string-using-a-dictionary-in-python-3-x
-    top_content = f"{TOP}".format(**page_variables)
+        # fill in correct values in the html code of top.html per each page, based on variables
+        # this particular methodology sorted out by experimenting with stackoverflow references to similar scenarioes, 
+        # but not exactly the same, at https://stackoverflow.com/questions/5952344/how-do-i-format-a-string-using-a-dictionary-in-python-3-x
+        top_content = f"{TOP}".format(**page_variables)
 
-    # combine all
-    return top_content + open(f"./content/{page}").read() + BOTTOM
+        # combine all
+        return top_content + open(f"./content/{page}").read() + BOTTOM
 
 
 
-def write_pg(page, full_content):
-    open(f"./docs/{page}", "w+").write(full_content)
+    def write_pg(page, full_content):
+        open(f"./docs/{page}", "w+").write(full_content)
 
 
-for pg in MY_PAGES:
-    write_pg(pg, build_pg_content(pg))
+    for pg in MY_PAGES:
+        write_pg(pg, build_pg_content(pg))
+main()
