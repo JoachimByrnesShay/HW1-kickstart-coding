@@ -1,13 +1,18 @@
 import modules.pages
 
-def main():
-    base = open('templates/base.html').read()
+def apply_template(content):
+    template = open("templates/base.html").read()
+    return template.format(content=content)
 
-    pages = modules.pages.PAGES
-
+def create_output(pages):
     for this_page in pages:
         main_content = open(this_page['filename']).read()
-        new_content = base.format(content=main_content) 
-        open(this_page['output'], 'w+').write(new_content)
+        open(this_page['output'], 'w+').write(apply_template(main_content))
 
+
+
+def main():
+    pages = modules.pages.PAGES
+    create_output(pages)
+    
 main()
