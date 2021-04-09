@@ -11,17 +11,20 @@ def apply_template(title, links, content):
     template_vars = {'title':title, 'links':links, 'content':content, 'year': year}
     return template.format(**template_vars)
 
-def create_links(pages, page):
+def get_link_classes(this_page, compared_page):
+    link_classes = ['nav-link', 'text-white']
+    if this_page['title'] == compared_page['title']:
+        link_classes.append("active")
+    return (' ').join(link_classes)
+    
+def create_links(pages, curr_page):
     list_links = ''
-    li_with_link = '<li class="nav-item"><a class="nav-link text-white {active_class}" href="{link_href}">{link_title}</a></li>'
-    for this_page in pages:
-        if this_page['title'] == page['title']:
-            active_class = "active"
-        else:
-            active_class = ""
-        link_href = this_page['output'].split('/')[1]
-        link_title = this_page['title'].upper()
-        list_links += li_with_link.format(active_class=active_class, link_href=link_href, link_title=link_title)
+    li_with_link = '<li class="nav-item"><a class="{link_classes}" href="{link_href}">{link_title}</a></li>'
+    for page in pages:
+        link_classes = get_link_classes(curr_page, page)
+        link_href = page['output'].split('/')[1]
+        link_title = page['title'].upper()
+        list_links += li_with_link.format(link_classes=link_classes, link_href=link_href, link_title=link_title)
     return list_links
 
 def create_output(pages):
