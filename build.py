@@ -41,27 +41,40 @@ def create_li_links(pages, curr_page, main_pages_location='./'):
     return list_links
 
 def create_blog_pages(pages, blogs):
+    # pending further development, currently for blog pages no link in nav is set to active
     links = create_li_links(pages, curr_page=None, main_pages_location='../docs/')
     blog_base = open('templates/blog_base.html').read()
+    # pass blog_base.html as content to base.html in apply_base_template() fuunction
     blog_content_template = apply_base_template(title="Blog Item", links=links, content=blog_base, css_path_prefix='../docs/')
     for blog in blogs:
         file_name = open(blog['filename'], 'w+')
         blog_vars = {'blog_item_title': blog['title'], 'blog_item_date': blog['date'], 'blog_item_content': blog['content']}
         file_name.write(blog_content_template.format(**blog_vars))
 
-def create_blog_index():
-    return {'blog_index': 'test string'}
+def create_main_pages(pages, blogs):
+    for this_page in pages:
+        main_content = open(this_page['filename']).read()
+        if this_page['title'] == 'Blog':
+            main_content = main_content.format(**create_blog_index(blogs))
+        links = create_li_links(pages, this_page)
+        title = this_page['title'].upper()
+        open(this_page['output'], 'w+').write(apply_base_template(title=title, links=links, content=main_content))
+
+def create_blog_index(blogs):
+    item_template = open('templates/blog_index_item.html').read()
+    content = ''
+    for blog_item in blogs:
+        title = blog_item['title']
+        snippet = blog_item['content'][:30] + '...'
+        filename = "../" + blog_item['filename']
+        content += item_template.format(title=title, filename=filename, snippet=snippet)
+    return {'blog_index': content}
 
 def create_output(main_pages, blog_pages):
     """creates output files in docs/ for content in each content/*html page after applying templating with links and title"""
     create_blog_pages(pages=main_pages, blogs=blog_pages)
-    for this_page in main_pages:
-        main_content = open(this_page['filename']).read()
-        if this_page['title'] == 'Blog':
-            main_content = main_content.format(**create_blog_index())
-        links = create_li_links(main_pages, this_page)
-        title = this_page['title'].upper()
-        open(this_page['output'], 'w+').write(apply_base_template(title=title, links=links, content=main_content))
+    create_main_pages(pages=main_pages, blogs=blog_pages)
+    
 
 def main():
     # PAGES is a list in modules/pages.py

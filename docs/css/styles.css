@@ -190,9 +190,10 @@ START right-side page general styling
 }
 /** END portfolio-specific styles
 START BLOG specific styles **/
-/** END blog-specific styles 
-****************************
-********************************/
+
+.card_body {
+  text-align: left;
+}
 
 .blog_item {
   text-align: left;
@@ -234,4 +235,42 @@ START ABOUT-page specific styles
   border-bottom: 1px solid hsl(10, 15%, 35%);
   padding-bottom: 1em;
 }
-/****************************************/
+/** END ABOUT-age specific styles
+START BLOG_INDEX specific styles
+/*******************************/
+
+.blog_index_item {
+  background-color: lightblue;
+  margin: 2em 0 2em 0;
+  border: 1px solid black;
+  padding: 0.5em 0 0.5em 0;
+  height: 8em;
+}
+
+.blog_index_item:hover {
+  background-color: rgba(200,100,200, .2);
+}
+
+.blog_index_item ul {
+  list-style-type: none;
+  margin: 0 auto;
+  width: 100%;
+  padding-right: .5em;
+}
+
+.blog_index_item li.item_title a {
+  font-weight: 900;
+  color: blue;
+  letter-spacing: .1em;
+  font-size: 1.1em;
+  margin-left: .5em;
+}
+
+li.item_title a:hover {
+  text-decoration: none;
+}
+
+.blog_index_item li.item_content span {
+  margin-left: .6em;
+  letter-spacing: .1em;
+}
