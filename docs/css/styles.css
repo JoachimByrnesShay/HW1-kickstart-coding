@@ -243,8 +243,7 @@ START BLOG_INDEX specific styles
   background-color: lightblue;
   margin: 2em 0 2em 0;
   border: 1px solid black;
-  padding: 0.5em 0 0.5em 0;
-  height: 8em;
+  padding: 0.5em 0 1em 0;
 }
 
 .blog_index_item:hover {

@@ -20,15 +20,15 @@ BLOG_POSTS = [
         "content": lorem.paragraph()
     },
     {
-        "filename": "blog/4.html",
+        "filename": "blog/5.html",
         "date": "April 8th, 2021",
-        "title": "Format strings in Python3",
+        "title": "Using * and ** for packing/unpacking arguments in Python",
         "content": lorem.paragraph()
     },
     {
-        "filename": "blog/5.html",
+        "filename": "blog/4.html",
         "date": "April 9th, 2021",
-        "title": "Using * and ** for packing/unpacking arguments in Python",
+        "title": "Format strings in Python3",
         "content": lorem.paragraph()
     },
 ]

@@ -10,7 +10,8 @@ def get_year():
     return year
 
 def apply_base_template(title, links, content, css_path_prefix=''):
-    """inserts page content, title, page nav links, current year into template and returns full content"""
+    """inserts page content, title, page nav links, current year into template and returns full content
+    adjusts css href as css_path if needed"""
     css_location = css_path_prefix + 'css/styles.css'
     year = get_year()
     template = open("templates/base.html").read()
@@ -30,7 +31,8 @@ def get_link_classes(this_page, compared_page):
 
 def create_li_links(pages, curr_page, main_pages_location='./'):
     """creates set of html li > a links to be inserted into placeholder via templatig inside of ul.navbar-nav 
-    with appropriate href, link text, and adds .active class to inline class list for link where required"""
+    with appropriate href, link text, and adds .active class to inline class list for link where required.
+    main_pages_location variable allows to adjust path relative to folder (such as for links in blog/1.html)"""
     list_links = ''
     li_with_link = '<li class="nav-item"><a class="{link_classes}" href="{link_href}">{link_title}</a></li>'
     for page in pages:
@@ -41,6 +43,7 @@ def create_li_links(pages, curr_page, main_pages_location='./'):
     return list_links
 
 def create_blog_pages(pages, blogs):
+    """creates individual blog pages in blog/"""
     # pending further development, currently for blog pages no link in nav is set to active
     links = create_li_links(pages, curr_page=None, main_pages_location='../docs/')
     blog_base = open('templates/blog_base.html').read()
@@ -52,6 +55,7 @@ def create_blog_pages(pages, blogs):
         file_name.write(blog_content_template.format(**blog_vars))
 
 def create_main_pages(pages, blogs):
+    """ creates main site pages in docs/ using PAGES list in modules/pages.py"""
     for this_page in pages:
         main_content = open(this_page['filename']).read()
         if this_page['title'] == 'Blog':
@@ -61,6 +65,7 @@ def create_main_pages(pages, blogs):
         open(this_page['output'], 'w+').write(apply_base_template(title=title, links=links, content=main_content))
 
 def create_blog_index(blogs):
+    """ creates content for docs/blog.html consisting of indexing of blog pages by title and 30 character lead"""
     item_template = open('templates/blog_index_item.html').read()
     content = ''
     for blog_item in blogs:
@@ -74,10 +79,9 @@ def create_output(main_pages, blog_pages):
     """creates output files in docs/ for content in each content/*html page after applying templating with links and title"""
     create_blog_pages(pages=main_pages, blogs=blog_pages)
     create_main_pages(pages=main_pages, blogs=blog_pages)
-    
-
+   
 def main():
-    # PAGES is a list in modules/pages.py
+    # PAGES is a list in modules/pages.py, BLOG_POSTS is list in modules/blog_posts.py
     pages = modules.pages.PAGES
     blogs = modules.blog_posts.BLOG_POSTS
     create_output(pages, blogs)
