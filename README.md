@@ -1,5 +1,5 @@
-## Homework #3, Kickstart Coding
-### Joachim Byrnes-Shay, April 9 2021
+## Refactored SSG, Homework #3, Kickstart Coding
+### Joachim Byrnes-Shay, April 10 2021
 ### email:  
 jbyrnes.shay@yahoo.com
 
@@ -17,12 +17,6 @@ https://joachimbyrnesshay.github.io/HW1-kickstart-coding/.
 https://github.com/JoachimByrnesShay/HW1-kickstart-coding/
 
 ***
-
-### NOTES
-
-***
-### Features
-
 
 ### previous HW1 Description, still applies
 A personal portfolio/blog site

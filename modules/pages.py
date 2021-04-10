@@ -1,5 +1,5 @@
-"""
-  module description
+""" imported as module inside of build.py.   PAGES is the pages list containing the
+data for each page to be generated for the site.
 """
 
 PAGES = [
