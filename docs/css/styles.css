@@ -120,7 +120,7 @@ START left-side main content styles
   height: 15em;
   width: 15em;
 }
-/** END left-side page genderal styling
+/** END left-side page general styling
 START right-side page general styling 
 *************************************/
 
@@ -194,7 +194,7 @@ START BLOG specific styles **/
 ****************************
 ********************************/
 
-.blog__item {
+.blog_item {
   text-align: left;
 }
 

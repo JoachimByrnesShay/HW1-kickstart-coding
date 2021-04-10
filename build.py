@@ -40,15 +40,7 @@ def create_li_links(pages, curr_page, main_pages_location='./'):
         list_links += li_with_link.format(link_classes=link_classes, link_href=link_href, link_title=link_title)
     return list_links
 
-def create_output(pages):
-    """creates output files in docs/ for content in each content/*html page after applying templating with links and title"""
-    for this_page in pages:
-        main_content = open(this_page['filename']).read()
-        links = create_li_links(pages, this_page)
-        title = this_page['title'].upper()
-        open(this_page['output'], 'w+').write(apply_base_template(title=title, links=links, content=main_content))
-
-def create_blog_pages(blogs, pages):
+def create_blog_pages(pages, blogs):
     links = create_li_links(pages, curr_page=None, main_pages_location='../docs/')
     blog_base = open('templates/blog_base.html').read()
     blog_content_template = apply_base_template(title="Blog Item", links=links, content=blog_base, css_path_prefix='../docs/')
@@ -57,12 +49,25 @@ def create_blog_pages(blogs, pages):
         blog_vars = {'blog_item_title': blog['title'], 'blog_item_date': blog['date'], 'blog_item_content': blog['content']}
         file_name.write(blog_content_template.format(**blog_vars))
 
+def create_blog_index():
+    return {'blog_index': 'test string'}
+
+def create_output(main_pages, blog_pages):
+    """creates output files in docs/ for content in each content/*html page after applying templating with links and title"""
+    create_blog_pages(pages=main_pages, blogs=blog_pages)
+    for this_page in main_pages:
+        main_content = open(this_page['filename']).read()
+        if this_page['title'] == 'Blog':
+            main_content = main_content.format(**create_blog_index())
+        links = create_li_links(main_pages, this_page)
+        title = this_page['title'].upper()
+        open(this_page['output'], 'w+').write(apply_base_template(title=title, links=links, content=main_content))
+
 def main():
     # PAGES is a list in modules/pages.py
     pages = modules.pages.PAGES
-    create_output(pages)
     blogs = modules.blog_posts.BLOG_POSTS
-    create_blog_pages(blogs, pages)
-   
+    create_output(pages, blogs)
+
 if __name__ == '__main__':
     main()
