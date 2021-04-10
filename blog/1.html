@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BLOG: Expert Web Developer- Django,React,Node,Python,Javascript</title>
+    <title>Blog Item: Expert Web Developer- Django,React,Node,Python,Javascript</title>
     <meta name="description" content="Creative knowledgeable web developer, expertise with Django, React, Node">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;600;700&family=Sarabun:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="../docs/css/styles.css">
 </head>
 
 <body>
@@ -25,15 +25,14 @@
                 <div class="col-6">
                     <div id="navbarMenu" class="px-5 collapse navbar-collapse">
                         <ul class="navbar-nav">
-                            <li class="nav-item"><a class="nav-link text-white" href="./index.html">HOME</a></li><li class="nav-item"><a class="nav-link text-white" href="./about.html">ABOUT</a></li><li class="nav-item"><a class="nav-link text-white active" href="./blog.html">BLOG</a></li><li class="nav-item"><a class="nav-link text-white" href="./projects.html">PROJECTS</a></li>
+                            <li class="nav-item"><a class="nav-link text-white" href="../docs/index.html">HOME</a></li><li class="nav-item"><a class="nav-link text-white" href="../docs/about.html">ABOUT</a></li><li class="nav-item"><a class="nav-link text-white" href="../docs/blog.html">BLOG</a></li><li class="nav-item"><a class="nav-link text-white" href="../docs/projects.html">PROJECTS</a></li>
                         </ul>
                     </div>
                 </div>
             </nav>
         </header>
     </div>
-    
-    <div class="container">
+        <div class="container">
         <div class='row main px-n3'>
             <div class="left-side col-12 col-md-6">
                 <div class="card introduction">
@@ -49,40 +48,17 @@
                 <div class="row blog text-center">
                     <div class="blog__item card col-12">
                         <div class="card-body">
-                            <h5 class='card-header'>Highlighting active page navlink in navbar</h5>
+                            <h5 class='card-header'>Highlighting active page nav-link in navbar</h5>
                             <p class='card-text'>
-                                This is the author's own solution resulting from tinkering. There are surely other ways to do this, but a simple solution assuming the use of a ul tag with li elements in the navbar is:
-                                <ul>
-                                    <li>Assign an .active class to the current page's link in the nav bar.</li>
-                                    <li>create a style rule for <code> ul:hover .active { background:none} </code> (this needs to be before the remaining style rules in styles.css)</li>
-                                    <li>follow the above with a style rule which styles your links as you wish when they are in the active and hover state (this author has implemented for the same style for each) </li>
-                                    <li>In this implementation, the style rule will be applied as:
-                                        <p>
-                                            <code>.active, ul a:active, li a:hover, ul .active:hover {
-                                                ... your chosen style for highlighting or transforming links on active and hover ...
-                                                };
-                                            </code></p>
-                                    </li>
-                                    <li>This works as follows: in each static page's html, the link for the current page will be assigned the .active and will default to the highlighted or transformed styling</li>
-                                    <li>
-                                        The first style rule we created will remmove that style (so will appear as not active) when user's mouse is moved over the ul element.
-                                    </li>
-                                    <li>
-                                        The second style rule, which also includes the default for the .active class, then kicks in when any link in the navbar is :active state (per mouse function), restores the styling to the element with the.active class when :hover state, and also adds the styling to any other link in the navbar which is in :hover state
-                                    </li>
-                                </ul>
-                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                                Dolore tempora neque voluptatem sed etincidunt consectetur. Consectetur labore amet amet ipsum. Labore labore labore magnam numquam. Adipisci sit est ipsum tempora non modi aliquam. Etincidunt sed adipisci consectetur. Labore etincidunt eius velit quisquam porro. Dolorem consectetur tempora dolor aliquam quisquam quiquia.
+                            </p>
+                            <p class="card-text"><small class="text-muted">April 2nd, 2021</small></p>
                         </div>
-                    </div>
-                    <div class="blog__item card col-12">
-                    </div>
-                    <div class="blog__item card col-12">
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
     <div class='container-fluid'>
         <div class="row">
             <footer class="col">

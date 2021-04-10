@@ -1,0 +1,21 @@
+      <p class='card-text'>
+                                This is the author's own solution resulting from tinkering. There are surely other ways to do this, but a simple solution assuming the use of a ul tag with li elements in the navbar is:
+                                <ul>
+                                    <li>Assign an .active class to the current page's link in the nav bar.</li>
+                                    <li>create a style rule for <code> ul:hover .active { background:none} </code> (this needs to be before the remaining style rules in styles.css)</li>
+                                    <li>follow the above with a style rule which styles your links as you wish when they are in the active and hover state (this author has implemented for the same style for each) </li>
+                                    <li>In this implementation, the style rule will be applied as:
+                                        <p>
+                                            <code>.active, ul a:active, li a:hover, ul .active:hover {
+                                                ... your chosen style for highlighting or transforming links on active and hover ...
+                                                };
+                                            </code></p>
+                                    </li>
+                                    <li>This works as follows: in each static page's html, the link for the current page will be assigned the .active and will default to the highlighted or transformed styling</li>
+                                    <li>
+                                        The first style rule we created will remmove that style (so will appear as not active) when user's mouse is moved over the ul element.
+                                    </li>
+                                    <li>
+                                        The second style rule, which also includes the default for the .active class, then kicks in when any link in the navbar is :active state (per mouse function), restores the styling to the element with the.active class when :hover state, and also adds the styling to any other link in the navbar which is in :hover state
+                                    </li>
+                                </ul></p>
