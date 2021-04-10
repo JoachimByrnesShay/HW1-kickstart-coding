@@ -15,8 +15,20 @@ BLOG_POSTS = [
     },
     {
         "filename": "blog/3.html",
-        "date": "April 9th, 2021",
+        "date": "April 7th, 2021",
         "title": "Variable scope in Python3 vs Ruby",
+        "content": lorem.paragraph()
+    },
+    {
+        "filename": "blog/4.html",
+        "date": "April 8th, 2021",
+        "title": "Format strings in Python3",
+        "content": lorem.paragraph()
+    },
+    {
+        "filename": "blog/5.html",
+        "date": "April 9th, 2021",
+        "title": "Using * and ** for packing/unpacking arguments in Python",
         "content": lorem.paragraph()
     },
 ]
