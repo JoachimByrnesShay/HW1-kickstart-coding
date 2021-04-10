@@ -254,7 +254,7 @@ START BLOG_INDEX specific styles
   list-style-type: none;
   margin: 0 auto;
   width: 100%;
-  padding-right: .5em;
+  padding-right: 1em;
 }
 
 .blog_index_item li.item_title a {
@@ -263,6 +263,12 @@ START BLOG_INDEX specific styles
   letter-spacing: .1em;
   font-size: 1.1em;
   margin-left: .5em;
+}
+
+.blog_index_item li.item_title {
+  border-bottom: 1px solid black;
+  padding-bottom: 1em;
+  margin-bottom: 1em;
 }
 
 li.item_title a:hover {
