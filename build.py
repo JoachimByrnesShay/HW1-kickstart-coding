@@ -1,4 +1,4 @@
-"""import of modules.pages allows usage of the PAGES variable: a list of dictionaries, one per each main 
+"""import of modules.pages (modules/pages.py) allows usage of the PAGES variable: a list of dictionaries, one per each main 
 site page.  datetime is imported from the standardd library to be utilized inside the get_year() function"""
 import datetime
 import modules.pages
@@ -51,6 +51,6 @@ def main():
     # PAGES is a list in modules/pages.py
     pages = modules.pages.PAGES
     create_output(pages)
-
+   
 if __name__ == '__main__':
     main()
