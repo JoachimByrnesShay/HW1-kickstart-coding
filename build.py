@@ -9,9 +9,9 @@ def get_year():
     year = datetime.date.today().year
     return year
 
-def apply_base_template(title, links, content, css='css/styles.css'):
+def apply_base_template(title, links, content, css_path_prefix=''):
     """inserts page content, title, page nav links, current year into template and returns full content"""
-    css_location = css
+    css_location = css_path_prefix + 'css/styles.css'
     year = get_year()
     template = open("templates/base.html").read()
     template_vars = {'css_filepath':css_location, 'title':title, 'links':links, 'content':content, 'year': year}
@@ -21,7 +21,6 @@ def apply_base_template(title, links, content, css='css/styles.css'):
 def get_link_classes(this_page, compared_page):
     """called inside of create_li_links().  creates a class list to be applied to each of all nav links
     created per each site page"""
-
     link_classes = ['nav-link', 'text-white']
     # append the .active class to avove default classes list if the link is a link for the current page
     if this_page and this_page['title'] == compared_page['title']:
@@ -49,25 +48,21 @@ def create_output(pages):
         title = this_page['title'].upper()
         open(this_page['output'], 'w+').write(apply_base_template(title=title, links=links, content=main_content))
 
-def test_blog_creation(blogs, pages):
-    #title, links, year
+def create_blog_pages(blogs, pages):
     links = create_li_links(pages, curr_page=None, main_pages_location='../docs/')
     blog_base = open('templates/blog_base.html').read()
-    #blog_content_template = main_base.format(title="Blog Item", links=links, year=year, content=blog_base)
-    blog_content_template = apply_base_template(title="Blog Item", links=links, content=blog_base, css='../docs/css/styles.css')
-    #print(blog_content_template)
+    blog_content_template = apply_base_template(title="Blog Item", links=links, content=blog_base, css_path_prefix='../docs/')
     for blog in blogs:
         file_name = open(blog['filename'], 'w+')
         blog_vars = {'blog_item_title': blog['title'], 'blog_item_date': blog['date'], 'blog_item_content': blog['content']}
         file_name.write(blog_content_template.format(**blog_vars))
-    # return None
 
 def main():
     # PAGES is a list in modules/pages.py
     pages = modules.pages.PAGES
     create_output(pages)
     blogs = modules.blog_posts.BLOG_POSTS
-    test_blog_creation(blogs, pages)
+    create_blog_pages(blogs, pages)
    
 if __name__ == '__main__':
     main()
