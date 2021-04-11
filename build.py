@@ -9,13 +9,12 @@ def get_year():
     year = datetime.date.today().year
     return year
 
-def apply_base_template(title, links, content, css_path_prefix=''):
+def apply_base_template(title, links, content, css_pdir='./'):
     """inserts page content, title, page nav links, current year into template and returns full content
     adjusts css href as css_path if needed"""
-    css_location = css_path_prefix + 'css/styles.css'
     year = get_year()
     template = open("templates/base.html").read()
-    template_vars = {'css_filepath':css_location, 'title':title, 'links':links, 'content':content, 'year': year}
+    template_vars = {'title':title, 'links':links, 'content':content, 'year': year, 'css_pdir': css_pdir}
     # using string format() with {} placeholders in html instead of replace() with {{}}
     return template.format(**template_vars)
 
@@ -29,7 +28,7 @@ def get_link_classes(this_page, compared_page):
     # return this list as a space separated string to be inserted in the templating
     return (' ').join(link_classes)
 
-def create_li_links(pages, curr_page, main_pages_location='./'):
+def create_li_links(pages, curr_page, links_pdir='./'):
     """creates set of html li > a links to be inserted into placeholder via templatig inside of ul.navbar-nav 
     with appropriate href, link text, and adds .active class to inline class list for link where required.
     main_pages_location variable allows to adjust path relative to folder (such as for links in blog/1.html)"""
@@ -37,20 +36,20 @@ def create_li_links(pages, curr_page, main_pages_location='./'):
     li_with_link = '<li class="nav-item"><a class="{link_classes}" href="{link_href}">{link_title}</a></li>'
     for page in pages:
         link_classes = get_link_classes(curr_page, page)
-        link_href = main_pages_location + page['output'].split('/')[1]
+        link_href = links_pdir + page['output'].split('/')[1]
         link_title = page['title'].upper()
         list_links += li_with_link.format(link_classes=link_classes, link_href=link_href, link_title=link_title)
     return list_links
 
-def create_blog_pages(pages, blogs):
+def create_blog_pages(pages, blogs, blog_dir='docs/'):
     """creates individual blog pages in blog/"""
     # pending further development, currently for blog pages no link in nav is set to active
-    links = create_li_links(pages, curr_page=None, main_pages_location='../docs/')
+    links = create_li_links(pages, curr_page=None, links_pdir='../')
     blog_base = open('templates/blog_base.html').read()
     # pass blog_base.html as content to base.html in apply_base_template() fuunction
-    blog_content_template = apply_base_template(title="Blog Item", links=links, content=blog_base, css_path_prefix='../docs/')
+    blog_content_template = apply_base_template(title="Blog Item", links=links, content=blog_base, css_pdir='../')
     for blog in blogs:
-        file_name = open(blog['filename'], 'w+')
+        file_name = open(blog_dir + blog['filename'], 'w+')
         blog_vars = {'blog_item_title': blog['title'], 'blog_item_date': blog['date'], 'blog_item_content': blog['content']}
         file_name.write(blog_content_template.format(**blog_vars))
 
@@ -71,7 +70,7 @@ def create_blog_index(blogs):
     for blog_item in blogs:
         title = blog_item['title']
         snippet = blog_item['content'][:30] + '...'
-        filename = "../" + blog_item['filename']
+        filename = blog_item['filename']
         content += item_template.format(title=title, filename=filename, snippet=snippet)
     return {'blog_index': content}
 
