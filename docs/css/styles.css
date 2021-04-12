@@ -193,6 +193,7 @@ START BLOG specific styles **/
 
 .card_body {
   text-align: left;
+  border: 1px solid black;
 }
 
 .blog_item {
