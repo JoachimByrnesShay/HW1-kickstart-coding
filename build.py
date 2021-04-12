@@ -71,7 +71,7 @@ def create_blog_index(blogs):
     for blog_item in blogs:
         title = blog_item['title']
         snippet = blog_item['content'][:30] + '...'
-        filename = blog_item['filename']
+        filename = './' + blog_item['filename']
         content += item_template.format(title=title, filename=filename, snippet=snippet)
     return {'blog_index': content}
 
