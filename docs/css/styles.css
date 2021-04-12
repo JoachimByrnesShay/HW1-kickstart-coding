@@ -191,13 +191,20 @@ START right-side page general styling
 /** END portfolio-specific styles
 START BLOG specific styles **/
 
-.card_body {
-  text-align: left;
+.card-body {
   border: 1px solid black;
 }
 
 .blog_item {
   text-align: left;
+}
+
+.blog_item h1 {
+  font-size: 1.1em;
+}
+
+.blog_item h2 {
+  font-size: 1em;
 }
 
 .blog li {
