@@ -1,12 +1,12 @@
-## Refactored SSG, Homework #3, Kickstart Coding
-### Joachim Byrnes-Shay, April 10 2021
+## Templating, Homework #4, Kickstart Coding
+### Joachim Byrnes-Shay, April 17 2021
 ### email:  
 jbyrnes.shay@yahoo.com
 
 ***
 
 ### Description
-HW#3, REFACTORED SSG
+HW#4, Templating
 
 ***
 
