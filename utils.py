@@ -3,6 +3,7 @@ site page.  datetime is imported from the standardd library to be utilized insid
 import datetime
 import glob
 import os
+import sys
 import modules.blog_posts
 from jinja2 import Template
 
@@ -33,6 +34,7 @@ def create_blog_pages(pages, blogs, blog_pdir='docs/'):
 
 def create_main_pages(pages, blogs):
     """ creates main site pages in docs/ using PAGES list in modules/pages.py"""
+    print(pages)
     for this_page in pages:
         main_content = Template(open(this_page['filename']).read())
         if this_page['title'] == 'Blog':
@@ -78,7 +80,7 @@ def get_title(file_name):
 def create_content_file_dict(file_path):
     file_dict = {}
     file_dict['filename'] = file_path
-    file_name = get_file_name(file_path.replace('md', 'html'))
+    file_name = get_file_name(file_path)
     file_dict['output'] = f"docs/{file_name}"
     file_dict['title'] = get_title(file_name)
     return file_dict
@@ -86,6 +88,7 @@ def create_content_file_dict(file_path):
 def create_content_list():
     file_paths = get_file_paths('content')
     files = []
+    index_path = ''
     for file_path in file_paths:
         if 'index' in file_path:
             index_path = file_path
@@ -96,6 +99,34 @@ def create_content_list():
     files.insert(0, create_content_file_dict(index_path))
     return files
    
+def functional_args():
+    return len(sys.argv) > 1
+
+def build_requested():
+    return functional_args() and sys.argv[1] == 'build'
+
+def new_requested():
+    return functional_args() and sys.argv[1] == 'new'
+ 
+def new_content():
+    return open("templates/new_content.html").read()
+
+def new_file():
+    file_name = input("Enter name of html content file to create: ").strip()
+    sanitized = [c if c.isalpha() else '_' for c in file_name]
+    file_name = ('').join(sanitized)
+    content = Template(new_content())
+    open(f"content/{file_name}.html", "w+").write(content.render())
+
+def print_command_line_help():
+    instruction = """
+    Usage:
+        Rebuild site:     python manage.py build
+        Create new page:  python manage.py new
+        """
+    print(instruction)
+
+
 def main():
     # PAGES is a list in modules/pages.py, BLOG_POSTS is list in modules/blog_posts.py
     pages = create_content_list()
