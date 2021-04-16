@@ -1,7 +1,8 @@
 """import of modules.pages (modules/pages.py) allows usage of the PAGES variable: a list of dictionaries, one per each main 
 site page.  datetime is imported from the standardd library to be utilized inside the get_year() function"""
 import datetime
-import modules.pages
+import glob
+import os
 import modules.blog_posts
 
 def get_year():
@@ -79,12 +80,49 @@ def create_output(main_pages, blog_pages):
     """creates output files in docs/ for content in each content/*html page after applying templating with links and title"""
     create_blog_pages(pages=main_pages, blogs=blog_pages)
     create_main_pages(pages=main_pages, blogs=blog_pages)
+
+
+def get_file_paths(folder):
+    return glob.glob(f'{folder}/*html')
+
+def get_file_name(file_path):
+    return os.path.basename(file_path)
+
+def get_title(file_name):
+    title,extension = os.path.splitext(file_name)
+    if title.lower() == 'index':
+        return 'Home'
+    else:
+        return title.capitalize()
+
+def create_content_file_dict(file_path):
+    file_dict = {}
+    file_dict['filename'] = file_path
+    file_name = get_file_name(file_path.replace('md', 'html'))
+    file_dict['output'] = f"docs/{file_name}"
+    file_dict['title'] = get_title(file_name)
+    return file_dict
+
+def create_content_list():
+    file_paths = get_file_paths('content')
+    files = []
+    for file_path in file_paths:
+        if 'index' in file_path:
+            index_path = file_path
+        else:
+            files.append(create_content_file_dict(file_path))
+    # moves index page dictionary to front of list so that it will be the first iterated value when 
+    # links are created, i.e. "HOME" will be the first link in nav
+    files.insert(0, create_content_file_dict(index_path))
+    return files
    
 def main():
     # PAGES is a list in modules/pages.py, BLOG_POSTS is list in modules/blog_posts.py
-    pages = modules.pages.PAGES
+    pages = create_content_list()
     blogs = modules.blog_posts.BLOG_POSTS
     create_output(pages, blogs)
+  
+
 
 if __name__ == '__main__':
     main()
