@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{title}: Expert Web Developer- Django,React,Node,Python,Javascript</title>
+    <title>{{title}}: Expert Web Developer- Django,React,Node,Python,Javascript</title>
     <meta name="description" content="Creative knowledgeable web developer, expertise with Django, React, Node">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;600;700&family=Sarabun:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{css_pdir}css/styles.css">
+    <link rel="stylesheet" href="{{css_pdir}}css/styles.css">
 </head>
 
 <body>
@@ -25,19 +25,25 @@
                 <div class="col-6">
                     <div id="navbarMenu" class="px-5 collapse navbar-collapse">
                         <ul class="navbar-nav">
-                            {links}
+                            {% for page in pages %}
+                            <li class="nav-item">
+                                <a class="nav-link text-white{{' ' + 'active' if page.title == title }}" href={{ page.output | replace("docs/", "")}}>
+                            {{page.title}}
+                                </a>
+                            </li>
+                            {% endfor %}
                         </ul>
                     </div>
                 </div>
             </nav>
         </header>
     </div>
-    {content}
+    {{content}}
     <div class='container-fluid'>
         <div class="row">
             <footer class="col">
                 <div class="navbar fixed-bottom navbar-dark bg-dark px-5">
-                    <small class="navbar-text">&copy; {year}, Joachim Byrnes-Shay</small>
+                    <small class="navbar-text">&copy; {{year}}, Joachim Byrnes-Shay</small>
                     <ul class="navbar-list ml-auto">
                         <li class="navbar-item navbar-text small"><a href="https://github.com">Github</a></li>
                         <li class="navbar-item navbar-text small"><a href="https://twitter.com">Twitter</a></li>
