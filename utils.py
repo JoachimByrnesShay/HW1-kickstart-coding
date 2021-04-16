@@ -5,6 +5,10 @@ import glob
 import os
 import sys
 import modules.blog_posts
+import codecs as co
+import markdown 
+import mistune
+import jinja2
 from jinja2 import Template
 
 def get_year():
@@ -12,11 +16,11 @@ def get_year():
     year = datetime.date.today().year
     return year
 
-def apply_base_template(title, content, pages, link_pdir='./', css_pdir='./'):
+def apply_base_template(title, content, pages, link_pdir='./', css_pdir='./', blog_index=None):
     """inserts page content, title, and page nav links into template and returns full content"""
     year = get_year()
     template = Template(open("templates/base.html").read())
-    template_vars = {'title':title, 'pages': pages, 'content': content, 'link_pdir':link_pdir, 'year': year, 'css_pdir': css_pdir}
+    template_vars = {'title':title, 'pages': pages, 'content': content, 'link_pdir':link_pdir, 'year': year, 'css_pdir': css_pdir, 'blog_index': blog_index}
     templated_file = template.render(template_vars)
     return templated_file
 
@@ -32,18 +36,50 @@ def create_blog_pages(pages, blogs, blog_pdir='docs/'):
         blog_vars = {'blog_item_title': blog['title'], 'blog_item_date': blog['date'], 'blog_item_content': blog['content']}
         file_name.write(blog_content_template.render(blog_vars))
 
+
+def md_to_html(file):
+    exts = ['markdown.extensions.meta']#, 'markdown.extensions.extra','markdown.extensions.tables','markdown.extensions.toc'] 
+    #file = open(file_path, 'r').read()
+    ret = markdown.markdown(file)
+    #template = Template(open('templates/base.html').read())
+    #final = template.render({'content':ret})
+    # print(ret)
+    return ret
+
 def create_main_pages(pages, blogs):
     """ creates main site pages in docs/ using PAGES list in modules/pages.py"""
-    print(pages)
     for this_page in pages:
-        main_content = Template(open(this_page['filename']).read())
-        if this_page['title'] == 'Blog':
-            main_content = main_content.render(create_blog_index(blogs))
-        else:
-            main_content = main_content.render()
+        file = open(this_page['filename'], 'r').read()
+        file_to_html = md_to_html(file)
+        # print(file_to_html)
+        # break
+        #main_content = Template(open(this_page['filename']).read())
+        main_content = Template(file_to_html).render()
+        # print(main_content)
+        # break
         title = this_page['title']
-        full_content = apply_base_template(title=title, pages=pages, content=main_content)
+        template_vars = {'title': title, 'pages': pages, 'content': main_content}
+        if this_page['title'] == 'Blog':
+            template_vars['blog_index'] = create_blog_index(blogs)
+           # main_content = main_content.render(create_blog_index(blogs))
+        # else:
+        #     main_content = main_content.render()
+        full_content = apply_base_template(**template_vars)
+
         open(this_page['output'], 'w+').write(full_content)
+
+
+# def create_main_pages(pages, blogs):
+#     """ creates main site pages in docs/ using PAGES list in modules/pages.py"""
+#     for this_page in pages:
+#         main_content = Template(open(this_page['filename']).read())
+#         if this_page['title'] == 'Blog':
+#             main_content = main_content.render(create_blog_index(blogs))
+#         else:
+#             main_content = main_content.render()
+#         title = this_page['title']
+#         full_content = apply_base_template(title=title, pages=pages, content=main_content)
+#         open(this_page['output'], 'w+').write(full_content)
 
 def create_blog_index(blogs):
     """ creates content for docs/blog.html consisting of indexing of blog pages by title and 30 character lead.
@@ -56,7 +92,9 @@ def create_blog_index(blogs):
         snippet = blog_item['content'][:30] + '...'
         filename = './' + blog_item['filename']
         content += item_template.render(title=title, filename=filename, snippet=snippet)
+    #print({'blog_index': content})
     return {'blog_index': content}
+
 
 def create_output(main_pages, blog_pages):
     """creates output files in docs/ for content in each content/*html page after applying templating with links and title"""
@@ -64,11 +102,16 @@ def create_output(main_pages, blog_pages):
     create_main_pages(pages=main_pages, blogs=blog_pages)
 
 
-def get_file_paths(folder):
-    return glob.glob(f'{folder}/*html')
+def get_file_paths(folder, type):
+    return glob.glob(f'{folder}/*{type}')
 
 def get_file_name(file_path):
     return os.path.basename(file_path)
+
+def get_file_name_only(file_path):
+    file_name = get_file_name(file_path)
+    name_only, extension = os.path.splitext(file_name)
+    return name_only
 
 def get_title(file_name):
     title,extension = os.path.splitext(file_name)
@@ -81,12 +124,14 @@ def create_content_file_dict(file_path):
     file_dict = {}
     file_dict['filename'] = file_path
     file_name = get_file_name(file_path)
-    file_dict['output'] = f"docs/{file_name}"
+
+    file_dict['output'] = f"docs/{get_file_name_only(file_path)}.html"
     file_dict['title'] = get_title(file_name)
+    print(file_dict)
     return file_dict
 
 def create_content_list():
-    file_paths = get_file_paths('content')
+    file_paths = get_file_paths('content', 'md')
     files = []
     index_path = ''
     for file_path in file_paths:
@@ -126,11 +171,32 @@ def print_command_line_help():
         """
     print(instruction)
 
+# def md_to_html(file_path):
+#     #exts = ['markdown.extensions.extra', 'markdown.extensions.codehilite','markdown.extensions.tables','markdown.extensions.toc']
+#     exts = ['markdown.extensions.meta']#, 'markdown.extensions.extra','markdown.extensions.tables','markdown.extensions.toc'] 
+#     g2 = open("content/index.md", 'r').read()
+#     #fr = jinja2.Markup(g2)
+   
+#     ret = markdown.markdown(g2)
+#     template = Template(open('templates/base.html').read())
+
+#     final = template.render({'content':ret})
+#     print(final)
+# def md_to_html(file_path):
+#     exts = ['markdown.extensions.meta']#, 'markdown.extensions.extra','markdown.extensions.tables','markdown.extensions.toc'] 
+#     file = open(file_path, 'r').read()
+#     ret = markdown.markdown(file)
+#     template = Template(open('templates/base.html').read())
+#     final = template.render({'content':ret})
+#     print(final)
+    
+
 
 def main():
     # PAGES is a list in modules/pages.py, BLOG_POSTS is list in modules/blog_posts.py
     pages = create_content_list()
     blogs = modules.blog_posts.BLOG_POSTS
+    # md_to_html()
     create_output(pages, blogs)
   
 
