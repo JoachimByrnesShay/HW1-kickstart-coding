@@ -27,7 +27,7 @@
                         <ul class="navbar-nav">
                             {% for page in pages %}
                             <li class="nav-item">
-                                <a class="nav-link text-white{{' ' + 'active' if page.title == title }}" href={{ page.output | replace("docs/", "")}}>
+                                <a class="nav-link text-white{{' ' + 'active' if page.title == title }}" href={{ ( link_pdir + page.output) | replace("docs/", "")}}>
                             {{page.title}}
                                 </a>
                             </li>

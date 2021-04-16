@@ -11,11 +11,11 @@ def get_year():
     year = datetime.date.today().year
     return year
 
-def apply_base_template(title, content, pages, css_pdir='./'):
+def apply_base_template(title, content, pages, link_pdir='./', css_pdir='./'):
     """inserts page content, title, and page nav links into template and returns full content"""
     year = get_year()
     template = Template(open("templates/base.html").read())
-    template_vars = {'title':title, 'pages': pages, 'content': content, 'year': year, 'css_pdir': css_pdir}
+    template_vars = {'title':title, 'pages': pages, 'content': content, 'link_pdir':link_pdir, 'year': year, 'css_pdir': css_pdir}
     templated_file = template.render(template_vars)
     return templated_file
 
@@ -25,7 +25,7 @@ def create_blog_pages(pages, blogs, blog_pdir='docs/'):
     #links = create_li_links(pages, curr_page=None, links_pdir='../')
     # pass blog_base.html as content to base.html in apply_base_template() function
     blog_base = open('templates/blog_base.html').read()
-    blog_content_template = Template(apply_base_template(title="Blog Item", content=blog_base, pages=pages, css_pdir='../'))
+    blog_content_template = Template(apply_base_template(title="Blog Item", content=blog_base, pages=pages, link_pdir='../', css_pdir='../'))
     for blog in blogs:
         file_name = open(blog_pdir + blog['filename'], 'w+')
         blog_vars = {'blog_item_title': blog['title'], 'blog_item_date': blog['date'], 'blog_item_content': blog['content']}
@@ -39,7 +39,6 @@ def create_main_pages(pages, blogs):
             main_content = main_content.render(create_blog_index(blogs))
         else:
             main_content = main_content.render()
-        #links = create_li_links(pages, this_page)
         title = this_page['title']
         full_content = apply_base_template(title=title, pages=pages, content=main_content)
         open(this_page['output'], 'w+').write(full_content)
@@ -103,5 +102,4 @@ def main():
     blogs = modules.blog_posts.BLOG_POSTS
     create_output(pages, blogs)
   
-if __name__ == '__main__':
-    main()
+
