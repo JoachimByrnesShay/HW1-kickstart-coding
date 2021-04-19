@@ -3,6 +3,7 @@ import glob
 import os
 import sys
 import markdown
+import lorem
 from jinja2 import Template
 import modules.blog_posts
 
@@ -17,6 +18,7 @@ def apply_base_template(title, content, pages, link_pdir='./', css_pdir='./'):
     year = get_year()
     template = Template(open("templates/base.html").read())
     template_vars = {'title':title, 'pages': pages, 'content': content, 'link_pdir':link_pdir, 'year': year, 'css_pdir': css_pdir}
+
     templated_file = template.render(**template_vars)
     return templated_file
 
@@ -26,26 +28,29 @@ def create_blog_pages(pages, blogs, blog_pdir='docs/'):
     as implemented, for blog pages there are no links in nav set to active state""" 
     # pass blog_base.html as content to base.html in apply_base_template() function
     blog_base = open('templates/blog_base.html').read()
-    blog_content_template = Template(apply_base_template(title="Blog Item", content=blog_base, pages=pages, link_pdir='../', css_pdir='../'))
     
     for blog in blogs:
+        blog_content_template = Template(apply_base_template(title=blog['title'], content=blog_base, pages=pages, link_pdir='../', css_pdir='../'))
         file_name = open(blog_pdir + blog['filename'], 'w+')
+
         blog_vars = {'blog_item_title': blog['title'], 'blog_item_date': blog['date'], 'blog_item_content': blog['content']}
         file_name.write(blog_content_template.render(blog_vars))
 
 
 def markdown_to_html(file_contents):
-    exts = ['markdown.extensions.meta', 'markdown.extensions.extra']
-    ret = markdown.markdown(file_contents, extensions=exts, output_format="html5")
-    return ret
+    exts = ['meta', 'extra']
+    markdowned = markdown.Markdown(extensions=exts)
+
+    html = markdowned.convert(file_contents)
+    meta_data = markdowned.Meta
+    return (html, meta_data)
 
 
 def create_main_pages(pages, blogs):
     """ creates main site pages in docs/ using PAGES list in modules/pages.py"""
-    
     for this_page in pages:
         file_contents = f"""{open(this_page['filename'], 'r').read()}"""
-        file_to_html = markdown_to_html(file_contents)
+        file_to_html, meta = markdown_to_html(file_contents)
         blog_index = ''
         if this_page['title'] == 'Blog':
             blog_index = create_blog_index(blogs)
@@ -74,6 +79,23 @@ def create_blog_index(blogs):
     return {'blog_index': content}
 
 
+def create_blogs():
+    blog_files = get_file_paths('content/blogs', 'md')
+    #return blog_files
+    #print(blog_files)
+    blogs = []
+    mdown = markdown.Markdown(extensions=["meta"])
+    for blog in blog_files:
+        blog_item = {}
+        blog_content = open(blog, 'r').read()
+        blog_item['filename'] = create_blog_filepath(blog)
+        html, meta = markdown_to_html(blog_content)
+        blog_item['date'] = meta['date'][0]
+        blog_item['title'] = meta['title'][0]
+        blog_item['content'] = html
+        blogs.append(blog_item)
+    return blogs
+
 def create_output(main_pages, blog_pages):
     """creates output files in docs/ for content in each content/*html page after applying templating with links and title"""
     create_blog_pages(pages=main_pages, blogs=blog_pages)
@@ -94,6 +116,9 @@ def get_file_name_only(file_path):
     return name_only
 
 
+def create_blog_filepath(file_path):
+    return 'blog/' + get_file_name_only(file_path) + '.html'
+    
 def get_title(file_name):
     title,extension = os.path.splitext(file_name)
     
@@ -114,7 +139,7 @@ def create_content_file_dict(file_path):
 
 
 def create_content_list():
-    file_paths = get_file_paths('content', 'md')
+    file_paths = get_file_paths('content/mainpages', 'md')
     files = []
     index_path = ''
     
@@ -155,7 +180,7 @@ def new_file():
     file_name = ('').join(sanitized)
     content = Template(new_content())
     
-    open(f"content/{file_name}.html", "w+").write(content.render())
+    open(f"content/mainpages/{file_name}.html", "w+").write(content.render())
 
 
 def print_command_line_help():
@@ -171,6 +196,8 @@ def print_command_line_help():
 def main():
     # BLOG_POSTS is list in modules/blog_posts.py
     pages = create_content_list()
-    blogs = modules.blog_posts.BLOG_POSTS
+   # blogs = modules.blog_posts.BLOG_POSTS
+    blogs = create_blogs()
     create_output(pages, blogs)
+    #create_blogs()
   
