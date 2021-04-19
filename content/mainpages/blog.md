@@ -1,3 +1,4 @@
+base_title: Expert Web Developer- Django,React,Node,Python,Javascript
 <div class="container">
     <div class='row main px-n3'>
         <div class="left-side col-12 col-md-6">

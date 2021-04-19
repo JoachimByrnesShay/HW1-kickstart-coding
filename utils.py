@@ -3,9 +3,7 @@ import glob
 import os
 import sys
 import markdown
-import lorem
 from jinja2 import Template
-import modules.blog_posts
 
 def get_year():
     """return current year using datetime module"""
@@ -18,7 +16,6 @@ def apply_base_template(title, content, pages, link_pdir='./', css_pdir='./'):
     year = get_year()
     template = Template(open("templates/base.html").read())
     template_vars = {'title':title, 'pages': pages, 'content': content, 'link_pdir':link_pdir, 'year': year, 'css_pdir': css_pdir}
-
     templated_file = template.render(**template_vars)
     return templated_file
 
@@ -30,7 +27,7 @@ def create_blog_pages(pages, blogs, blog_pdir='docs/'):
     blog_base = open('templates/blog_base.html').read()
     
     for blog in blogs:
-        blog_content_template = Template(apply_base_template(title=blog['title'], content=blog_base, pages=pages, link_pdir='../', css_pdir='../'))
+        blog_content_template = Template(apply_base_template(title=blog['title'], content=blog_base,pages=pages, link_pdir='../', css_pdir='../'))
         file_name = open(blog_pdir + blog['filename'], 'w+')
 
         blog_vars = {'blog_item_title': blog['title'], 'blog_item_date': blog['date'], 'blog_item_content': blog['content']}
@@ -45,21 +42,35 @@ def markdown_to_html(file_contents):
     meta_data = markdowned.Meta
     return (html, meta_data)
 
+def has_markdown_page(page):
+    md_content_folder = get_file_paths('content/mainpage_markdown/', 'md')
+    for filepath in md_content_folder:
+        fp = get_file_name(filepath)
+        if page in fp:
+           return True
+    return False
 
 def create_main_pages(pages, blogs):
     """ creates main site pages in docs/ using PAGES list in modules/pages.py"""
     for this_page in pages:
+
+        md_name = get_file_name_only(this_page['filename']) + '_md'
         file_contents = f"""{open(this_page['filename'], 'r').read()}"""
         file_to_html, meta = markdown_to_html(file_contents)
+
+        title = this_page['title'] + ': ' + meta['base_title'][0]
         blog_index = ''
+        md_contents = ''
         if this_page['title'] == 'Blog':
             blog_index = create_blog_index(blogs)
-            
-        main_content = Template(file_to_html).render(blog_index)
-        title = this_page['title']
+        
+        if has_markdown_page(md_name):
+            location = f'content/mainpage_markdown/{md_name}' + '.md'
+            md_contents, meta = markdown_to_html(open(location).read())
+    
+        main_content = Template(file_to_html).render(blog_index=blog_index, new_md_content=md_contents)
         template_vars = {'title': title, 'pages': pages, 'content': main_content}
         full_content = apply_base_template(**template_vars)
-
         open(this_page['output'], 'w+').write(full_content)
 
 
@@ -76,13 +87,12 @@ def create_blog_index(blogs):
         filename = './' + blog_item['filename']
         content += item_template.render(title=title, filename=filename, snippet=snippet)
     
-    return {'blog_index': content}
+    return content
 
 
 def create_blogs():
     blog_files = get_file_paths('content/blogs', 'md')
-    #return blog_files
-    #print(blog_files)
+
     blogs = []
     mdown = markdown.Markdown(extensions=["meta"])
     for blog in blog_files:
@@ -173,31 +183,37 @@ def new_content():
     return open("templates/new_content.html").read()
 
 
+def new_file_starter_text():
+    return "##### This is new markdown content\n  \n\rAnd this is new markdown content\n \n\rFile can be edited in /content/mainpage_markdown/"
+
+
 def new_file():
-    file_name = input("Enter name of html content file to create: ").strip()
+    print("""A blank markdown file will be created at /content/mainpage_markdown with the filename = filename + '_md.md'. 
+    This file is for user edits of the basic central content desired for filename.html.
+    User can insert markdown in the '_md.md' file and then rebuild.
+    *************************************************************************************************\n""")
+
+    file_name = input("Please enter name of new file.  After edits to markdown if any and after build, result will be filename.html\n::").strip()
     sanitized = [c if c.isalpha() else '_' for c in file_name]
     
     file_name = ('').join(sanitized)
-    content = Template(new_content())
-    
-    open(f"content/mainpages/{file_name}.html", "w+").write(content.render())
+    content = new_content()    
+    open(f"content/mainpage_markdown/{file_name}_md.md", "w+").write(new_file_starter_text())   
+    open(f"content/mainpages/{file_name}.md", "w+").write(content)
 
 
 def print_command_line_help():
     instruction = """
     Usage:
         Rebuild site:     python manage.py build
-        Create new page:  python manage.py new
+        Create new main site page:  python manage.py new
         """
     print(instruction)
 
 
 
 def main():
-    # BLOG_POSTS is list in modules/blog_posts.py
     pages = create_content_list()
-   # blogs = modules.blog_posts.BLOG_POSTS
     blogs = create_blogs()
     create_output(pages, blogs)
-    #create_blogs()
   

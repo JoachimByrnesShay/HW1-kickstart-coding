@@ -243,7 +243,7 @@ START ABOUT-page specific styles
   border-bottom: 1px solid hsl(10, 15%, 35%);
   padding-bottom: 1em;
 }
-/** END ABOUT-age specific styles
+/** END ABOUT-page specific styles
 START BLOG_INDEX specific styles
 /*******************************/
 
@@ -287,3 +287,16 @@ li.item_title a:hover {
   margin-left: .6em;
   letter-spacing: .1em;
 }
+/** END BLOG_INDEX specific styles
+START NEW MARKDOWN CONTENT FILE styles
+/*******************************/
+
+.new-content {
+  background: white;
+  color: black;
+  border: 5px black solid;
+  border-radius: 10px;
+}
+/** END NEW MARKDOWN CONTENT FILE styles 
+/**************************************.
+/********************************/
