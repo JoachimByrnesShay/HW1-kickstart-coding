@@ -18,6 +18,11 @@ https://github.com/JoachimByrnesShay/HW1-kickstart-coding/
 
 ***
 
+### notes
+complete through Phase 7 bonus
+
+***
+
 ### previous HW1 Description, still applies
 A personal portfolio/blog site
 
