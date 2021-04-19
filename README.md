@@ -1,4 +1,4 @@
-## Templating, Homework #4, Kickstart Coding
+## Templating, Homework #4, phases 1-7 (bonus), Kickstart Coding
 ### Joachim Byrnes-Shay, April 17 2021
 ### email:  
 jbyrnes.shay@yahoo.com
