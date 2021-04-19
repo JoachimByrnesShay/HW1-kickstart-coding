@@ -257,6 +257,8 @@ def new_file():
     print("""A blank markdown file will be created at /content/mainpage_markdown with the filename = filename + '_md.md'. 
     This file is for user edits of the basic central content desired for filename.html.
     User can insert markdown in the '_md.md' file and then rebuild.
+
+    NOTE:  you MUST run "manage.py build" in order to publish anything created with "manage.py new" !!!
     *************************************************************************************************\n""")
 
     file_name = input("Please enter name of new file.  After edits to markdown if any and after build, result will be filename.html\n::").strip()
@@ -270,7 +272,7 @@ def new_file():
     # user editable markdown file to match 
     open(f"content/mainpage_markdown/{file_name}_md.md", "w+").write(new_file_starter_text(file_name))   
 
-    print(f"\nFile with name {file_name}.md created in content/mainpages, with matching user editable {file_name}_md.md at /content/mainpage_markdown\n")
+    print(f"\nFile with name {file_name}.md created in /content/mainpages, with matching user editable {file_name}_md.md at /content/mainpage_markdown\n")
 
 
 
@@ -300,4 +302,3 @@ def main():
   
 
 
-  
