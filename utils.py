@@ -6,12 +6,10 @@ import markdown
 from jinja2 import Template
 
 
-
 def get_year():
     """return current year using datetime module"""
     year = datetime.date.today().year
     return year
-
 
 
 def apply_base_template(title, content, pages, link_pdir='./', css_pdir='./', base_title=''):
@@ -26,10 +24,10 @@ def apply_base_template(title, content, pages, link_pdir='./', css_pdir='./', ba
     return templated_file
 
 
-
 def create_blog_pages(pages, blogs, blog_pdir='docs/'):
     """creates individual blog pages in blog/.  blog_pdir adjusts relative links based on parent dir of blogs dir.  current site is hosted from docs/ on github pages.
     as implemented, for blog pages there are no links in nav set to active state""" 
+    
     # pass blog_base.html as content to base.html in apply_base_template() function
     blog_base = open('templates/blog_base.html').read()
     
@@ -38,7 +36,6 @@ def create_blog_pages(pages, blogs, blog_pdir='docs/'):
         blog_content_template = Template(apply_base_template(title=blog['title'], content=blog_base, pages=pages, link_pdir='../', css_pdir='../'))
         file_name = open(blog_pdir + blog['filename'], 'w+')
         file_name.write(blog_content_template.render(blog_vars))
-
 
 
 def markdown_to_html(file_contents):
@@ -51,7 +48,6 @@ def markdown_to_html(file_contents):
     return (html, meta_data)
 
 
-
 def has_markdown_page(page):
     """utility function to check if page being tested in any_accessory_content() function has a matching user editable md file in content/mainpage_markdown"""
     md_content_folder = get_file_paths('content/mainpage_markdown/', 'md')
@@ -60,7 +56,6 @@ def has_markdown_page(page):
         if page in fp:
            return True
     return False
-
 
 
 def any_accessory_content(page, blogs):
@@ -80,7 +75,6 @@ def any_accessory_content(page, blogs):
     return {'blog_index': blog_index, 'new_md_content': md_contents}
 
 
-
 def create_main_pages(pages, blogs):
     """ creates main site pages in docs/ dynamically using main markdown file contents in content/mainpages """
     for this_page in pages:
@@ -88,8 +82,7 @@ def create_main_pages(pages, blogs):
         file_contents = f"""{open(this_page['filename'], 'r').read()}"""
         file_to_html, meta = markdown_to_html(file_contents)
 
-        """ adds simple page specific title to base_title for main content pages, distinct from base_title below but in final page build they will be concatenated if BOTH exist """
-        #print(meta)
+        # adds simple page specific title to base_title for main content pages, distinct from base_title below but in final page build they will be concatenated if BOTH exist 
         if 'title' in meta:
             title = meta['title']
         else:
@@ -104,7 +97,6 @@ def create_main_pages(pages, blogs):
        
         full_content = apply_base_template(**template_vars)
         open(this_page['output'], 'w+').write(full_content)
-
 
 
 def create_blog_index(blogs):
@@ -122,18 +114,15 @@ def create_blog_index(blogs):
     return content
 
 
-
 def create_blogs():
     """ returns a list of dictionaries of blog content for processing, one dictionary of data for each full blog entry created from markdown files in content/blogs"""
     blog_files = get_file_paths('content/blogs', 'md')
     blogs = []
-    mdown = markdown.Markdown(extensions=["meta"])
 
     for blog_file in blog_files:
         blogs.append(blog_item_constructor(blog_file))
-
+        
     return blogs
-
 
 
 def blog_item_constructor(blog_location):
@@ -150,12 +139,10 @@ def blog_item_constructor(blog_location):
     return blog_item
 
 
-
 def create_output(main_pages, blog_pages):
     """creates output files in docs/ for content in each content/*html page after applying templating with all templating info including links and title"""
     create_blog_pages(pages=main_pages, blogs=blog_pages)
     create_main_pages(pages=main_pages, blogs=blog_pages)
-
 
 
 def get_file_paths(folder, type):
@@ -163,11 +150,9 @@ def get_file_paths(folder, type):
     return glob.glob(f'{folder}/*{type}')
 
 
-
 def get_file_name(file_path):
     """  utility function to return filename with extension """
     return os.path.basename(file_path)
-
 
 
 def get_file_name_only(file_path):
@@ -177,11 +162,9 @@ def get_file_name_only(file_path):
     return name_only
 
 
-
 def create_blog_filepath(file_path):
     """ utility function used in """
     return 'blog/' + get_file_name_only(file_path) + '.html'
-
 
     
 def get_title(file_name):
@@ -194,7 +177,6 @@ def get_title(file_name):
         return title.capitalize()
 
 
-
 def create_content_file_dict(file_path):
     """ returns dict for markdown mainfiles found in /content/mainpage, with filename, intended html output location, and title """
     file_dict = {}
@@ -204,7 +186,6 @@ def create_content_file_dict(file_path):
     file_dict['output'] = f"docs/{get_file_name_only(file_path)}.html"
     file_dict['title'] = get_title(file_name)
     return file_dict
-
 
 
 def create_content_list():
@@ -225,7 +206,6 @@ def create_content_list():
     return files
 
 
-
 # a group of command line-usage related functions are below
 def functional_args():
     """ called in manage.py, returns boolean indicating if there is an addtional command line argument used with python3 manage.py """ 
@@ -233,17 +213,14 @@ def functional_args():
     return len(sys.argv) > 1
 
 
-
 def build_requested():
     """ checks if build function is requested at command line """
     return functional_args() and sys.argv[1] == 'build'
 
 
-
 def new_requested():
     """ checks if new file function is requested at command line """
     return functional_args() and sys.argv[1] == 'new'
-
 
  
 def new_content():
@@ -251,18 +228,17 @@ def new_content():
     return open("templates/new_content.html").read()
 
 
-
 def new_file():
     """ additional instruction when user requestes new file creation at command line usage """
-    print("""A blank markdown file will be created at /content/mainpage_markdown with the filename = filename + '_md.md'. 
-    This file is for user edits of the basic central content desired for filename.html.
-    User can insert markdown in the '_md.md' file and then rebuild.
+    print("""A stock markdown file will be created at /content/mainpage_markdown with the filename = filename + '_md.md'. 
+    This is a user-editable file using markdown format to construct content desired for filename.html.
+    Insert markdown in the '_md.md' file and then rebuild with 'python3 manage.py build'
 
-    NOTE:  you MUST run "manage.py build" in order to publish anything created with "manage.py new" !!!
+    NOTE:  User MUST run "manage.py build" in order to publish files created with "manage.py new" !!!
     *************************************************************************************************\n""")
 
-    file_name = input("Please enter name of new file.  After edits to markdown if any and after build, result will be filename.html\n::").strip()
-    # make sure that if user enters char in filename that is not alpha, replace char with '_'
+    file_name = input("Please enter name of new file.  After edits to markdown (if any) and after build, result will be filename.html\n::").strip()
+    # sanitizes input.  ensures that if user enters chars in filename which are not alpha, offending chars are replaced with underscore
     sanitized = [c if c.isalpha() else '_' for c in file_name]
     
     file_name = ('').join(sanitized)
@@ -275,12 +251,11 @@ def new_file():
     print(f"\nFile with name {file_name}.md created in /content/mainpages, with matching user editable {file_name}_md.md at /content/mainpage_markdown\n")
 
 
-
 def new_file_starter_text(file_name):
-    """ returns starter content for the blank user editable markdown file in content/mainpage_markdown which will be created with matching new requested filename in content/mainpages 
+    """ returns starter content for the blank user-editable markdown file in content/mainpage_markdown/ which is created with a matching file in content/mainpages. 
+    content/mainpage_markdown/new_filename_md.md content will be inserted into content/mainpages/new_filename.md as a solution to inserting markdown inside of nested tags (present in auto-generated new md in content/mainpages/). 
     adds title in meta data in the markdown file for ease of use in dynamically constructing the file data when the main pages are built"""
     return f"title:{file_name}\n  \n\r##### This is new markdown content\n  \n\rAnd this is new markdown content\n \n\rFile can be edited in /content/mainpage_markdown/"
-
 
 
 def print_command_line_help():
@@ -293,12 +268,9 @@ def print_command_line_help():
     print(instruction)
 
 
-
 # main is conditionally called from manage.py, based upon user command line usage
 def main():
     pages = create_content_list()
     blogs = create_blogs()
     create_output(pages, blogs)
-  
-
-
+ 
